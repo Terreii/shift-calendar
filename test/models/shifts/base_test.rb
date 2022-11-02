@@ -1,3 +1,5 @@
+require "test_helper"
+
 class Shifts::BaseTest < ActiveSupport::TestCase
   test "should have a method to select and create shifts by id" do
     shift = Shifts::Base.create "bosch-6-6", year: 2022, month: 8

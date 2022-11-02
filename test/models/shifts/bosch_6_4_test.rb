@@ -1,3 +1,5 @@
+require "test_helper"
+
 class Shifts::Bosch64Test < ActiveSupport::TestCase
   test "returns the shifts of every group for a day" do
     month = Shifts::Bosch64.new year: 2022, month: 8
