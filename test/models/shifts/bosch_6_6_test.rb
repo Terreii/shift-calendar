@@ -45,16 +45,16 @@ class Shifts::Bosch66Test < ActiveSupport::TestCase
   test "should have a current_working_shift method" do
     month = Shifts::Bosch66.new year: 2022, month: 10
 
-    travel_to Time.new(2022, 10, 10, rand(0..5), 0, 0)
+    travel_to Time.zone.local(2022, 10, 10, rand(0..5), 0, 0)
     assert_equal [:night, Date.yesterday], month.current_working_shift
 
-    travel_to Time.new(2022, 10, 8, rand(6..13), 0, 0)
+    travel_to Time.zone.local(2022, 10, 8, rand(6..13), 0, 0)
     assert_equal [:morning, Date.current], month.current_working_shift
 
-    travel_to Time.new(2023, 2, 14, rand(14..21), 0, 0)
+    travel_to Time.zone.local(2023, 2, 14, rand(14..21), 0, 0)
     assert_equal [:evening, Date.current], month.current_working_shift
 
-    travel_to Time.new(2023, 2, 14, rand(22..23), 0, 0)
+    travel_to Time.zone.local(2023, 2, 14, rand(22..23), 0, 0)
     assert_equal [:night, Date.current], month.current_working_shift
   end
 
