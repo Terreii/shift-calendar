@@ -9,8 +9,8 @@ jobs:
       postgres:
         image: postgres:14.5
         env:
-          POSTGRES_USER: myapp
-          POSTGRES_DB: myapp_test
+          POSTGRES_USER: shift_calendar
+          POSTGRES_DB: shift_calendar_test
           POSTGRES_PASSWORD: ""
         ports: ["5432:5432"]
 
@@ -37,7 +37,7 @@ jobs:
         env:
           RAILS_ENV: test
           PGHOST: localhost
-          PGUSER: myapp
+          PGUSER: shift_calendar
         run: |
           bin/rails db:setup
 
