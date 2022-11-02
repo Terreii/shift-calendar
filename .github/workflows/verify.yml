@@ -7,13 +7,18 @@ jobs:
     runs-on: ubuntu-latest
     services:
       postgres:
-        image: postgres:14.5
+        image: postgres
         env:
           POSTGRES_USER: shift_calendar
           POSTGRES_DB: shift_calendar_test
-          POSTGRES_PASSWORD: ""
-        ports: ["5432:5432"]
-        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
+          POSTGRES_PASSWORD: "pass"
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 5432:5432
 
     steps:
       - name: Checkout code
@@ -37,8 +42,7 @@ jobs:
       - name: Setup test database
         env:
           RAILS_ENV: test
-          PGHOST: localhost
-          PGUSER: shift_calendar
+          DATABASE_URL: postgres://shift_calendar:pass@localhost/shift_calendar_test
         run: |
           bin/rails db:setup
 
