@@ -47,4 +47,7 @@ jobs:
           bin/rails db:setup
 
       - name: Run tests
+        env:
+          RAILS_ENV: test
+          DATABASE_URL: postgres://shift_calendar:pass@localhost/shift_calendar_test
         run: bin/rails t
