@@ -81,4 +81,23 @@ class CalendarControllerTest < ActionDispatch::IntegrationTest
     # highlight current working shift
     assert_not_nil body.at_css("#day_#{Date.yesterday.iso8601} > .current_shift")
   end
+
+  test "should mark holidays" do
+    get month_calendar_path(id: "bosch-6-6", year: 2022, month: 5)
+    body = Nokogiri.parse @response.body
+
+    assert_not_nil body.at_css("tr#day_2022-05-01 > .holiday")
+    assert_not_nil body.at_css("tr#day_2022-05-04 > .holiday")
+    assert_equal 2, body.css(".holiday").size
+  end
+
+  test "should mark holidays in year" do
+    get year_calendar_path(id: "bosch-6-4", year: 2022)
+    body = Nokogiri.parse @response.body
+
+    assert_not_nil body.at_css("tr#day_2022-05-01 > .holiday")
+    assert_not_nil body.at_css("tr#day_2022-05-04 > .holiday")
+    assert_not_nil body.at_css("tr#day_2022-08-08 > .holiday")
+    assert_equal 3, body.css(".holiday").size
+  end
 end
