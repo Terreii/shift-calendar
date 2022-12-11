@@ -3,8 +3,8 @@
 <%= render @holiday %>
 
 <div>
-  <%= link_to "Edit this holiday", edit_holiday_path(@holiday) %> |
-  <%= link_to "Back to holidays", holidays_path %>
+  <%= link_to "Edit this holiday", edit_holiday_path(@holiday), class: "btn btn-secondary" %>
+  <%= link_to "Back to holidays", holidays_path, class: "btn btn-light" %>
 
-  <%= button_to "Destroy this holiday", @holiday, method: :delete %>
+  <%= button_to "Destroy this holiday", @holiday, class: "btn btn-danger mt-3", method: :delete %>
 </div>

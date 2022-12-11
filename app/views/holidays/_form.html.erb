@@ -1,6 +1,6 @@
-<%= form_with(model: holiday) do |form| %>
+<%= form_with(model: holiday, class: "d-flex flex-column gap-3") do |form| %>
   <% if holiday.errors.any? %>
-    <div style="color: red">
+    <div class="alert alert-warning">
       <h2><%= pluralize(holiday.errors.count, "error") %> prohibited this holiday from being saved:</h2>
 
       <ul>
@@ -12,16 +12,16 @@
   <% end %>
 
   <div>
-    <%= form.label :name, style: "display: block" %>
-    <%= form.text_field :name %>
+    <%= form.label :name, class: "form-label" %>
+    <%= form.text_field :name, class: "form-control" %>
   </div>
 
   <div>
-    <%= form.label :date, style: "display: block" %>
-    <%= form.date_field :date %>
+    <%= form.label :date, class: "form-label" %>
+    <%= form.date_field :date, class: "form-control" %>
   </div>
 
   <div>
-    <%= form.submit %>
+    <%= form.submit nil, class: "btn btn-primary" %>
   </div>
 <% end %>

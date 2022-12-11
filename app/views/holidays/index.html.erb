@@ -2,13 +2,17 @@
 
 <h1>Holidays</h1>
 
-<div id="holidays">
+<%= link_to "New holiday", new_holiday_path, class: "btn btn-primary mb-3" %>
+
+<div id="holidays" class="d-flex flex-column gap-3">
   <% @holidays.each do |holiday| %>
-    <%= render holiday %>
-    <p>
-      <%= link_to "Show this holiday", holiday %>
-    </p>
+    <div class="card">
+      <div class="card-body">
+        <%= render holiday %>
+        <p>
+        <%= link_to "Show this holiday", holiday, class: "btn btn-secondary" %>
+        </p>
+      </div>
+    </div>
   <% end %>
 </div>
-
-<%= link_to "New holiday", new_holiday_path %>
