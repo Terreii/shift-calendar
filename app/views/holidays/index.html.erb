@@ -2,17 +2,10 @@
 
 <h1>Holidays</h1>
 
-<%= link_to "New holiday", new_holiday_path, class: "btn btn-primary mb-3" %>
+<%= turbo_frame_tag dom_id(Holiday.new) do %>
+  <%= link_to "New holiday", new_holiday_path, class: "btn btn-primary mb-3" %>
+<% end %>
 
 <div id="holidays" class="d-flex flex-column gap-3">
-  <% @holidays.each do |holiday| %>
-    <div class="card">
-      <div class="card-body">
-        <%= render holiday %>
-        <p>
-        <%= link_to "Show this holiday", holiday, class: "btn btn-secondary" %>
-        </p>
-      </div>
-    </div>
-  <% end %>
+  <%= render partial: @holidays %>
 </div>
