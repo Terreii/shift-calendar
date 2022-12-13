@@ -1,4 +1,10 @@
-<p style="color: green"><%= notice %></p>
+<div id="alert">
+  <% if notice %>
+    <div class="alert alert-success" role="alert" data-turbo-cache="false">
+      <%= notice %>
+    </div>
+  <% end %>
+</div>
 
 <h1>Holidays</h1>
 

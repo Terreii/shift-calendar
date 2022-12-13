@@ -3,7 +3,7 @@ class HolidaysController < ApplicationController
 
   # GET /holidays or /holidays.json
   def index
-    @holidays = Holiday.all
+    @holidays = Holiday.all.order date: :desc
   end
 
   # GET /holidays/1 or /holidays/1.json
@@ -26,6 +26,7 @@ class HolidaysController < ApplicationController
     respond_to do |format|
       if @holiday.save
         format.html { redirect_to holiday_url(@holiday), notice: "Holiday was successfully created." }
+        format.turbo_stream
         format.json { render :show, status: :created, location: @holiday }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -39,6 +40,7 @@ class HolidaysController < ApplicationController
     respond_to do |format|
       if @holiday.update(holiday_params)
         format.html { redirect_to holiday_url(@holiday), notice: "Holiday was successfully updated." }
+        format.turbo_stream
         format.json { render :show, status: :ok, location: @holiday }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -53,6 +55,7 @@ class HolidaysController < ApplicationController
 
     respond_to do |format|
       format.html { redirect_to holidays_url, notice: "Holiday was successfully destroyed." }
+      format.turbo_stream
       format.json { head :no_content }
     end
   end

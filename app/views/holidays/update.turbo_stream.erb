@@ -1,0 +1,7 @@
+<%= turbo_stream.replace @holiday %>
+<%= turbo_stream.update "alert", tag.div(
+  "Holiday was successfully updated.",
+  class: "alert alert-success",
+  role: "alert",
+  data: { turbo_cache: false }
+) %>

@@ -19,11 +19,11 @@ class HolidaysTest < ApplicationSystemTestCase
     click_on "Create Holiday"
 
     assert_text "Holiday was successfully created"
-    click_on "Back"
+    click_on "cancel"
   end
 
   test "should update Holiday" do
-    visit holiday_url(@holiday)
+    visit holidays_url
     click_on "Edit this holiday", match: :first
 
     fill_in "Date", with: @holiday.date
@@ -31,11 +31,10 @@ class HolidaysTest < ApplicationSystemTestCase
     click_on "Update Holiday"
 
     assert_text "Holiday was successfully updated"
-    click_on "Back"
   end
 
   test "should destroy Holiday" do
-    visit holiday_url(@holiday)
+    visit holidays_url
     click_on "Destroy this holiday", match: :first
 
     assert_text "Holiday was successfully destroyed"
