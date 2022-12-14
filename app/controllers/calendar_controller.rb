@@ -21,6 +21,8 @@ class CalendarController < ApplicationController
     if today.year == year && today.month == month || last_month.year == year && last_month.month == month
       @current_shift, @current_shift_date = @shift.current_working_shift
     end
+
+    @holidays = Holiday.all_in_month year, month
   end
 
   # GET /calendar/1/2023
@@ -37,6 +39,8 @@ class CalendarController < ApplicationController
     if Date.current.year == @year
       @current_shift, @current_shift_date = @months[0].current_working_shift
     end
+
+    @holidays = Holiday.all_in_year @year
   end
 
   private

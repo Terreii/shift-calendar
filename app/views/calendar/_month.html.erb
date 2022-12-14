@@ -40,9 +40,12 @@
           <%# Day in month column %>
           <%= tag.td(
             tag.time(date.day, datetime: date.iso8601),
-            title: dls == date ? daylight_saving_text(date) : nil,
+            title: dls == date ? daylight_saving_text(date) : (
+              holidays.has_key?(date) ? holidays[date].first.name : nil
+            ),
             class: {
               day_in_month: true,
+              holiday: holidays.has_key?(date),
               daylight_saving: dls == date
             }
           ) %>

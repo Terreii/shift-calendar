@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  scope '/admin' do
+    resources :holidays
+  end
   resources :calendar, only: [:index, :show] do
     member do
       get ":year", to: "calendar#year", as: :year, constraints: { year: /\d{4}/ }

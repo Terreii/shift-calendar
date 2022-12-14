@@ -1,0 +1,7 @@
+<%= turbo_stream.prepend "holidays", @holiday %>
+<%= turbo_stream.update "alert", tag.div(
+  "Holiday was successfully created.",
+  class: "alert alert-success",
+  role: "alert",
+  data: { turbo_cache: false }
+) %>

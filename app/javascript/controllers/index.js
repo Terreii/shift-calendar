@@ -4,5 +4,8 @@
 
 import { application } from "./application"
 
+import ResetFormController from "./reset_form_controller"
+application.register("reset-form", ResetFormController)
+
 import ShiftUpdateController from "./shift_update_controller"
 application.register("shift-update", ShiftUpdateController)

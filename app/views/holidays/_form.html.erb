@@ -1,0 +1,30 @@
+<%= form_with(model: holiday, class: "d-flex flex-column gap-3", data: {
+  controller: "reset-form",
+  action: "turbo:submit-end->reset-form#reset"
+}) do |form| %>
+  <% if holiday.errors.any? %>
+    <div class="alert alert-warning">
+      <h2><%= pluralize(holiday.errors.count, "error") %> prohibited this holiday from being saved:</h2>
+
+      <ul>
+        <% holiday.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :name, class: "form-label" %>
+    <%= form.text_field :name, class: "form-control" %>
+  </div>
+
+  <div>
+    <%= form.label :date, class: "form-label" %>
+    <%= form.date_field :date, class: "form-control" %>
+  </div>
+
+  <div>
+    <%= form.submit nil, class: "btn btn-primary" %>
+  </div>
+<% end %>

@@ -116,8 +116,12 @@
 }
 
 .daylight_saving {
-  --bs-table-bg: #fcd34d;
+  --bs-table-bg: #{$yellow-300};
   cursor: help;
+}
+
+.holiday {
+  --bs-table-bg: #{$cyan-300};
 }
 
 .group_1 {
