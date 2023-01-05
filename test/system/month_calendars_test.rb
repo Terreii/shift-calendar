@@ -78,7 +78,7 @@ class MonthCalendarsTest < ApplicationSystemTestCase
   end
 
   test "should highlight today in year_calendar_path" do
-    visit year_calendar_path(id: "bosch-6-4", year: 2022)
+    visit year_calendar_path(id: "bosch-6-4", year: Date.current.year)
 
     # Border for the row
     assert_selector "tr#day_#{Date.current.iso8601}.today"
