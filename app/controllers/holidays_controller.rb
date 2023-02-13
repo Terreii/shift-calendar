@@ -3,7 +3,7 @@ class HolidaysController < ApplicationController
 
   # GET /holidays or /holidays.json
   def index
-    @holidays = Holiday.all.order date: :desc
+    @holidays = Holiday.all.order duration: :desc
   end
 
   # GET /holidays/1 or /holidays/1.json

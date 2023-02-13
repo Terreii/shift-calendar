@@ -10,17 +10,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_02_07_193052) do
+ActiveRecord::Schema[7.0].define(version: 2023_02_13_215509) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-
-  create_table "holidays", force: :cascade do |t|
-    t.string "name"
-    t.date "date"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["date"], name: "index_holidays_on_date"
-  end
 
   create_table "public_events", force: :cascade do |t|
     t.string "type"
@@ -29,6 +21,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_07_193052) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["duration"], name: "index_public_events_on_duration", using: :gist
+    t.index ["type", "duration"], name: "index_public_events_on_type_and_duration"
+    t.index ["type"], name: "index_public_events_on_type"
   end
 
 end

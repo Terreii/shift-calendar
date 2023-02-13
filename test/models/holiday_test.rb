@@ -16,6 +16,24 @@ class HolidayTest < ActiveSupport::TestCase
     assert_not holiday.save
   end
 
+  test "should have a date method" do
+    holiday = holidays(:one)
+    assert_equal holiday.duration.begin, holiday.date
+  end
+
+  test "should allow to write to date" do
+    holiday = holidays(:one)
+    holiday.date = Date.today
+    assert_equal Date.today, holiday.date
+    assert_equal Date.today..Date.today, holiday.duration
+    assert holiday.save
+  end
+
+  test "date should return nil if no duration is set" do
+    holiday = Holiday.new
+    assert_nil holiday.date
+  end
+
   test "all_in_month finds all holidays in a month" do
     holidays = Holiday.all_in_month 2022, 5
     assert_equal 2, holidays.size

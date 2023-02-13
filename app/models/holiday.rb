@@ -1,15 +1,18 @@
-class Holiday < ApplicationRecord
-  validates :name, presence: true, length: { minimum: 2 }
-  validates :date, presence: true
-
+class Holiday < PublicEvent
   def self.all_in_month(year, month)
-    days = Time.days_in_month month, year
-    date_range = Date.new(year, month, 1)..Date.new(year, month, days)
-    where(date: date_range).order(:date).group_by(&:date)
+    PublicEvent.where(type: Holiday.name).all_in_month year, month
   end
 
   def self.all_in_year(year)
-    date_range = Date.new(year, 1, 1)..Date.new(year, 12, 31)
-    where(date: date_range).order(:date).group_by(&:date)
+    PublicEvent.where(type: Holiday.name).all_in_year year
+  end
+
+  def date
+    return nil if duration.nil?
+    duration.begin
+  end
+
+  def date=(new_date)
+    self.duration = new_date..new_date
   end
 end
