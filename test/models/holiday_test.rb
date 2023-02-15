@@ -33,19 +33,4 @@ class HolidayTest < ActiveSupport::TestCase
     holiday = Holiday.new
     assert_nil holiday.date
   end
-
-  test "all_in_month finds all holidays in a month" do
-    holidays = Holiday.all_in_month 2022, 5
-    assert_equal 2, holidays.size
-    assert_equal "Tag der Arbeit", holidays[Date.new(2022, 5, 1)].first.name
-    assert_equal "Star Wars Day", holidays[Date.new(2022, 5, 4)].first.name
-  end
-
-  test "all_in_year finds all holidays in a year" do
-    holidays = Holiday.all_in_year 2022
-    assert_equal 3, holidays.size
-    assert_equal "Tag der Arbeit", holidays[Date.new(2022, 5, 1)].first.name
-    assert_equal "Star Wars Day", holidays[Date.new(2022, 5, 4)].last.name
-    assert_equal "International Cat Day", holidays[Date.new(2022, 8, 8)].last.name
-  end
 end

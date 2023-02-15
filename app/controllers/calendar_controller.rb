@@ -22,7 +22,7 @@ class CalendarController < ApplicationController
       @current_shift, @current_shift_date = @shift.current_working_shift
     end
 
-    @holidays = Holiday.all_in_month year, month
+    @public_events = PublicEvent.all_in_month year, month
   end
 
   # GET /calendar/1/2023
@@ -40,7 +40,7 @@ class CalendarController < ApplicationController
       @current_shift, @current_shift_date = @months[0].current_working_shift
     end
 
-    @holidays = Holiday.all_in_year @year
+    @public_events = PublicEvent.all_in_year @year
   end
 
   private

@@ -47,7 +47,7 @@
     class: "d-none d-xl-block g-col-12 g-col-md-6 g-col-lg-4 g-col-xl-3"
   ) %>
 
-  <%= render "month", month: @shift, holidays: @holidays %>
+  <%= render "month", month: @shift, public_events: @public_events %>
 
   <%= turbo_frame_tag(
     "month_#{@next_month.year}-#{@next_month.month}",
