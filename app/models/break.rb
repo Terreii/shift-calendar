@@ -1,2 +1,0 @@
-class Break < PublicEvent
-end

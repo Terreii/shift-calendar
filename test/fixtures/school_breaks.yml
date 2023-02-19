@@ -1,16 +1,16 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 break_in_month:
-  type: <%= Break.name %>
+  type: <%= SchoolBreak.name %>
   name: Pfingstferien
   duration: "[2022-06-05,2022-06-19]"
 
 multi_month_break:
-  type: <%= Break.name %>
+  type: <%= SchoolBreak.name %>
   name: Summer Breaks
   duration: "[2022-07-28,2022-09-11]"
 
 over_year_break:
-  type: <%= Break.name %>
+  type: <%= SchoolBreak.name %>
   name: Winter Breaks
   duration: "[2022-12-21,2023-01-08]"
