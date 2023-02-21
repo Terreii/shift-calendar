@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   scope '/admin' do
     resources :holidays
+    resources :school_breaks
   end
   resources :calendar, only: [:index, :show] do
     member do

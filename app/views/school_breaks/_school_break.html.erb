@@ -1,0 +1,26 @@
+<%= turbo_frame_tag dom_id(school_break) do %>
+  <div class="card">
+    <div class="card-body">
+      <h2 class="card-title fs-3">
+        <strong>Name:</strong>
+        <%= school_break.name %>
+      </h2>
+
+      <p class="card-text">
+        <strong>Start Date:</strong>
+        <%= school_break.start_date %>
+      </p>
+
+      <p class="card-text">
+        <strong>End Date:</strong>
+        <%= school_break.end_date %>
+      </p>
+    </div>
+
+    <div class="card-footer d-flex gap-3">
+      <%= link_to "Edit this school break", edit_school_break_path(school_break), class: "btn btn-secondary" %>
+
+      <%= button_to "Destroy this school break", school_break, class: "btn btn-danger", method: :delete %>
+    </div>
+  </div>
+<% end %>

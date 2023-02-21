@@ -1,0 +1,7 @@
+<%= turbo_stream.prepend "school_breaks", @school_break %>
+<%= turbo_stream.update "alert", tag.div(
+  "School break was successfully created.",
+  class: "alert alert-success",
+  role: "alert",
+  data: { turbo_cache: false }
+) %>

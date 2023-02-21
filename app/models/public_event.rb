@@ -38,4 +38,30 @@ class PublicEvent < ApplicationRecord
     end
     events
   end
+
+  def start_date
+    return nil if duration.nil?
+    duration.begin
+  end
+
+  def start_date=(new_date)
+    new_date = Date.parse(new_date) if new_date.instance_of? String
+    if duration.nil?
+      self.duration = new_date...new_date.tomorrow
+    end
+    self.duration = new_date...duration.end
+  end
+
+  def end_date
+    return nil if duration.nil?
+    duration.end.yesterday
+  end
+
+  def end_date=(new_date)
+    new_date = Date.parse(new_date) if new_date.instance_of? String
+    if duration.nil?
+      self.duration = new_date.yesterday...new_date
+    end
+    self.duration = duration.begin...new_date.tomorrow
+  end
 end
