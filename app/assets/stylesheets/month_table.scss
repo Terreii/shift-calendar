@@ -120,8 +120,12 @@
   cursor: help;
 }
 
-.holiday {
+.school_break {
   --bs-table-bg: #{$cyan-300};
+}
+
+.holiday {
+  --bs-table-bg: #{$purple-300};
 }
 
 .group_1 {

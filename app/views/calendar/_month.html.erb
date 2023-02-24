@@ -41,10 +41,10 @@
           <%= tag.td(
             tag.time(date.day, datetime: date.iso8601),
             title: dls == date ? daylight_saving_text(date) : (
-              public_events.has_key?(date) ? public_events[date].last.name : nil
+              public_events.has_key?(date) ? public_events[date].map(&:name).join("\r\n") : nil
             ),
             class: [
-              public_events.has_key?(date) && dom_class(public_events[date].last),
+              public_events.has_key?(date) && public_events[date].map { |event| dom_class(event) },
               "day_in_month",
               { daylight_saving: dls == date }
             ]

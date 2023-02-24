@@ -100,4 +100,11 @@ class CalendarControllerTest < ActionDispatch::IntegrationTest
     assert_not_nil body.at_css("tr#day_2022-08-08 > .holiday")
     assert_equal 3, body.css(".holiday").size
   end
+
+  test "should support multiple public_events on a day" do
+    get month_calendar_path(id: "bosch-6-6", year: 2022, month: 8)
+    body = Nokogiri.parse @response.body
+
+    assert_not_nil body.at_css("tr#day_2022-08-08 > .holiday.school_break")
+  end
 end
