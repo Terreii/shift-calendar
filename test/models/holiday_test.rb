@@ -16,6 +16,15 @@ class HolidayTest < ActiveSupport::TestCase
     assert_not holiday.save
   end
 
+  test "should require a duration of one day" do
+    holiday = Holiday.new name: Faker::Games::Zelda.location
+    holiday.duration = Date.new(2022, 1, 1)...Date.new(2022, 1, 3)
+    assert_not holiday.save
+    
+    holiday.duration = Date.new(2022, 1, 1)...Date.new(2022, 1, 2)
+    assert holiday.save
+  end
+
   test "should have a date method" do
     holiday = holidays(:one)
     assert_equal holiday.duration.begin, holiday.date
