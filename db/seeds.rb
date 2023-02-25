@@ -23,3 +23,12 @@ Holiday.create([
   { name: "1. Weihnachtsfeiertag", date: Date.new(year, 12, 25) },
   { name: "2. Weihnachtsfeiertag", date: Date.new(year, 12, 26) }
 ])
+
+# Add Baden-Wuerttemberg school breaks
+SchoolBreak.create([
+  { name: "Herbstferien",     duration: Date.new(year, 10, 31)..Date.new(year, 11, 4) },
+  { name: "Weihnachtsferien", duration: Date.new(year, 12, 21)..Date.new(year + 1, 1, 7) },
+  { name: "Osterferien",      duration: Date.new(year + 1, 4, 6)..Date.new(year + 1, 4, 15) },
+  { name: "Pfingstferien",    duration: Date.new(year + 1, 5, 30)..Date.new(year + 1, 6, 9) },
+  { name: "Sommerferien",     duration: Date.new(year + 1, 7, 27)..Date.new(year + 1, 9, 9) }
+])
