@@ -1,0 +1,17 @@
+<div id="alert">
+  <% if notice %>
+    <div class="alert alert-success" role="alert" data-turbo-cache="false">
+      <%= notice %>
+    </div>
+  <% end %>
+</div>
+
+<h1>School breaks</h1>
+
+<%= turbo_frame_tag dom_id(SchoolBreak.new) do %>
+  <%= link_to "New School Break", new_school_break_path, class: "btn btn-primary mb-3" %>
+<% end %>
+
+<div id="school_breaks" class="public_events_list d-flex flex-column gap-3">
+  <%= render partial: @school_breaks %>
+</div>

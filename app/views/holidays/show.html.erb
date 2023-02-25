@@ -1,8 +1,6 @@
 <p style="color: green"><%= notice %></p>
 
-<%= turbo_frame_tag dom_id(@holiday) do %>
-  <%= render @holiday %>
-<% end %>
+<%= render @holiday %>
 
 <div>
   <%= link_to "Back to holidays", holidays_path, class: "btn btn-light" %>

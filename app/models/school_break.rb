@@ -1,0 +1,2 @@
+class SchoolBreak < PublicEvent
+end
