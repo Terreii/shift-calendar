@@ -137,7 +137,8 @@
 }
 
 .group_3 {
-  --bs-table-bg: #f00;
+  --bs-table-bg: #{$red-500};
+  color: white;
 }
 
 .group_4 {
