@@ -2,7 +2,7 @@
 <html>
   <head>
     <title>ShiftCalendarRt</title>
-    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimal-ui, viewport-fit=cover">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
@@ -12,7 +12,7 @@
 
   <body>
     <nav class="navbar navbar-expand-md bg-success bg-gradient sticky-top">
-      <div class="container-fluid">
+      <div class="container">
         <%= nav_link_to "Schichtkalender", root_path, class: "navbar-brand" %>
         <%= yield(:cal_nav) if content_for?(:cal_nav) %>
 
