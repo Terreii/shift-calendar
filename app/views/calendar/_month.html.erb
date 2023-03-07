@@ -38,17 +38,21 @@
           <% end %>
 
           <%# Day in month column %>
-          <%= tag.td(
-            tag.time(date.day, datetime: date.iso8601),
-            title: dls == date ? daylight_saving_text(date) : (
-              public_events.has_key?(date) ? public_events[date].map(&:name).join("\r\n") : nil
-            ),
-            class: [
-              public_events.has_key?(date) && public_events[date].map { |event| dom_class(event) },
-              "day_in_month",
-              { daylight_saving: dls == date }
-            ]
-          ) %>
+          <% if dls == date || public_events.has_key?(date) %>
+            <% titles = (public_events[date] || []).map(&:name) + (dls == date ? [daylight_saving_text(date)] : []) %>
+            <%= tag.td(
+              title: titles.join("\r\n"),
+              class: [
+                public_events.has_key?(date) && public_events[date].map { |event| dom_class(event) },
+                "day_in_month",
+                { daylight_saving: dls == date }
+              ]
+            ) do %>
+              <%= tag.time(date.day, datetime: date.iso8601) %>
+            <% end %>
+          <% else %>
+            <%= tag.td tag.time(date.day, datetime: date.iso8601), class: "day_in_month" %>
+          <% end %>
 
           <%# Week day column %>
           <td class="weekday">
