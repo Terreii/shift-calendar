@@ -15,7 +15,7 @@
     <div class="card-footer d-flex gap-3">
       <%= link_to "Edit this holiday", edit_holiday_path(holiday), class: "btn btn-secondary" %>
 
-      <%= button_to "Destroy this holiday", holiday, class: "btn btn-danger", method: :delete %>
+      <%= button_to "Destroy this holiday", holiday, class: "btn btn-danger", method: :delete, data: { turbo_confirm: "Are you sure?" } %>
     </div>
   </div>
 <% end %>

@@ -20,7 +20,7 @@
     <div class="card-footer d-flex gap-3">
       <%= link_to "Edit this school break", edit_school_break_path(school_break), class: "btn btn-secondary" %>
 
-      <%= button_to "Destroy this school break", school_break, class: "btn btn-danger", method: :delete %>
+      <%= button_to "Destroy this school break", school_break, class: "btn btn-danger", method: :delete, data: { turbo_confirm: "Are you sure?" } %>
     </div>
   </div>
 <% end %>

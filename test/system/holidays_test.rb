@@ -35,7 +35,9 @@ class HolidaysTest < ApplicationSystemTestCase
 
   test "should destroy Holiday" do
     visit holidays_url
-    click_on "Destroy this holiday", match: :first
+    page.accept_confirm do
+      click_on "Destroy this holiday", match: :first
+    end
 
     assert_text "Holiday was successfully destroyed"
   end
