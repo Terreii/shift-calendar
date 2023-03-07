@@ -37,7 +37,9 @@ class SchoolBreaksTest < ApplicationSystemTestCase
 
   test "should destroy School break" do
     visit school_breaks_url
-    click_on "Destroy this school break", match: :first
+    page.accept_confirm do
+      click_on "Destroy this school break", match: :first
+    end
 
     assert_text "School break was successfully destroyed"
   end
