@@ -43,12 +43,22 @@
             <%= tag.td(
               title: titles.join("\r\n"),
               class: [
-                public_events.has_key?(date) && public_events[date].map { |event| dom_class(event) },
                 "day_in_month",
+                "day_with_event",
+                public_events.has_key?(date) && public_events[date].map { |event| dom_class(event) },
                 { daylight_saving: dls == date }
               ]
             ) do %>
-              <%= tag.time(date.day, datetime: date.iso8601) %>
+              <%= tag.button(
+                type: "button",
+                data: {
+                  bs_toggle: "tooltip",
+                  bs_placement: "top",
+                  bs_title: titles.join("<br>")
+                }
+              ) do %>
+                <%= tag.time(date.day, datetime: date.iso8601) %>
+              <% end %>
             <% end %>
           <% else %>
             <%= tag.td tag.time(date.day, datetime: date.iso8601), class: "day_in_month" %>
