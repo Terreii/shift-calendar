@@ -89,4 +89,15 @@ class MonthCalendarsTest < ApplicationSystemTestCase
       assert_selector "#day_#{Date.current.iso8601} > .current_shift"
     end
   end
+
+  test "should display tooltip for events" do
+    visit month_calendar_path(id: "bosch-6-6", year: 2023, month: 3)
+
+    assert_selector "td.daylight_saving"
+    element = find("td.daylight_saving")
+    element.hover
+
+    assert_not_nil element["aria-describedby"], "should have a tooltip description"
+    assert find("div.tooltip##{element["aria-describedby"]}").visible?, "should show a tooltip"
+  end
 end
