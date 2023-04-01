@@ -8,11 +8,11 @@ export default class extends Controller {
 
   tooltipTargetConnected(element) {
     const tooltip = new Tooltip(element)
-    #targets.set(element, tooltip)
+    this.#targets.set(element, tooltip)
   }
 
   tooltipTargetDisconnected(element) {
-    const tooltip = #targets.get(element)
+    const tooltip = this.#targets.get(element)
     tooltip?.dispose()
   }
 }
