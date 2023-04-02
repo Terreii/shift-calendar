@@ -31,7 +31,7 @@
 <%= render "legend", shift: @shift %>
 
 <%= tag.div class: "grid", data: {
-  controller: "shift-update",
+  controller: "shift-update tooltip",
   action: "visibilitychange@document->shift-update#visibilityChange",
   shift_update_shifts_value: @shift.shifts_times.to_json,
   shift_update_zone_offset_value: Time.current.utc_offset,

@@ -117,7 +117,6 @@
 
 .daylight_saving {
   --bs-table-bg: #{$yellow-300};
-  cursor: help;
 }
 
 .school_break {
@@ -126,6 +125,10 @@
 
 .holiday {
   --bs-table-bg: #{$purple-300};
+}
+
+.shift_calendar .day_with_event {
+  cursor: help;
 }
 
 .group_1 {
