@@ -32,7 +32,7 @@ class Shifts::Bosch66 < Shifts::Base
       # days are devided by 2 because there are always 2 days of same shifts
       @@shifts[days_offsetted / 2]
     end
-    { closed: false, shifts: }
+    { closed: closed?(day), shifts: }
   end
 
   private

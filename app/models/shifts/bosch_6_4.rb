@@ -23,7 +23,7 @@ class Shifts::Bosch64 < Shifts::Base
       days_offsetted -= @@shift_cycle_length if days_offsetted >= @@shift_cycle_length
       shift group, days_offsetted
     end
-    { closed: false, shifts: }
+    { closed: closed?(day), shifts: }
   end
 
   private
