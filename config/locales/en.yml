@@ -62,3 +62,4 @@ en:
     dls:
       forward: "Daylight saving switch! The clock is turned 1 hour forward (from 2am to 3am)."
       back: "Daylight saving switch! The clock is turned 1 hour back (from 3am to 2am)."
+    closed: "Closed Day"

@@ -107,4 +107,18 @@ class CalendarControllerTest < ActionDispatch::IntegrationTest
 
     assert_not_nil body.at_css("tr#day_2022-08-08 > .holiday.school_break")
   end
+
+  test "should show closed days" do
+    get month_calendar_path(id: "bosch-6-6", year: 2022, month: 4)
+    body = Nokogiri.parse @response.body
+    (15..18).each do |day|
+      assert_not_nil body.at_css("tr#day_2022-04-#{day}.closed"), "Day 2022-04-#{day}"
+    end
+
+    get month_calendar_path(id: "bosch-6-6", year: 2022, month: 12)
+    body = Nokogiri.parse @response.body
+    (24..26).each do |day|
+      assert_not_nil body.at_css("tr#day_2022-12-#{day}.closed"), "Day 2022-12-#{day}"
+    end
+  end
 end

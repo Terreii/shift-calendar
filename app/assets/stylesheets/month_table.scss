@@ -115,6 +115,10 @@
   }
 }
 
+.closed {
+  --bs-table-bg: #{$green-400};
+}
+
 .daylight_saving {
   --bs-table-bg: #{$yellow-300};
 }
