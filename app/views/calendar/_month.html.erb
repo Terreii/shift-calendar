@@ -71,7 +71,7 @@
           </td>
 
           <%# shifts columns %>
-          <% data.each_with_index do |shift, index| %>
+          <% data[:shifts].each_with_index do |shift, index| %>
             <% if shift == :free %>
               <td class="shift_cell"></td>
             <% else %>

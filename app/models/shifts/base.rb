@@ -23,8 +23,11 @@ class Shifts::Base
     0
   end
 
+  # Get shifts data for a day im month.
+  # Returns a Hash with shifts: Array => Shifts of every group
+  # And with closed: Boolean => If on that day is a closing day
   def at(day)
-    []
+    { closed: false, shifts: [] }
   end
 
   def [](day)
@@ -53,7 +56,7 @@ class Shifts::Base
     return @work_data unless @work_data.nil?
     work_data = Array.new(groups, 0)
     month_data.each_with_index do |data, index|
-      data.each_with_index do |shift, index|
+      data[:shifts].each_with_index do |shift, index|
         work_data[index] += 1 unless shift == :free
       end
     end
