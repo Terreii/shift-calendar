@@ -17,6 +17,10 @@ class Shifts::Bosch66Test < ActiveSupport::TestCase
       closed: false,
       shifts: [:morning, :free, :free, :night, :free, :evening]
     }), month2.at(8)
+    assert_equal ({
+      closed: true,
+      shifts: [:night, :free, :evening, :free, :morning, :free]
+    }), month2.at(24)
   end
 
   test "should have a [] method" do
@@ -85,5 +89,16 @@ class Shifts::Bosch66Test < ActiveSupport::TestCase
       }
     }
     assert_equal shifts, month.shifts_times
+  end
+
+  test "should have closing days" do
+    month = Shifts::Bosch66.new year: 2022, month: 12
+    assert month.at(Faker::Number.within(range: 24..26))[:closed], "X-mas"
+    
+    month = Shifts::Bosch66.new year: 2023, month: 4
+    assert month.at(Faker::Number.within(range: 7..10))[:closed], "Easter 2023"
+
+    month = Shifts::Bosch66.new year: 2022, month: 4
+    assert month.at(Faker::Number.within(range: 15..18))[:closed], "Easter 2022"
   end
 end
