@@ -3,11 +3,24 @@ require "test_helper"
 class Shifts::Bosch64Test < ActiveSupport::TestCase
   test "returns the shifts of every group for a day" do
     month = Shifts::Bosch64.new year: 2022, month: 8
-    assert_equal [:free, :morning, :evening, :night, :free], month.at(22)
-    assert_equal [:evening, :morning, :night, :free, :free], month.at(23)
+    assert_equal ({
+      closed: false,
+      shifts: [:free, :morning, :evening, :night, :free]
+    }), month.at(22)
+    assert_equal ({
+      closed: false,
+      shifts: [:evening, :morning, :night, :free, :free]
+    }), month.at(23)
 
     month2 = Shifts::Bosch64.new year: 2023, month: 12
-    assert_equal [:night, :evening, :free, :free, :morning], month2.at(8)
+    assert_equal ({
+      closed: false,
+      shifts: [:night, :evening, :free, :free, :morning]
+    }), month2.at(8)
+    assert_equal ({
+      closed: true,
+      shifts: [:free, :morning, :evening, :night, :free]
+    }), month2.at(24)
   end
 
   test "should have a [] method" do
@@ -76,5 +89,16 @@ class Shifts::Bosch64Test < ActiveSupport::TestCase
       }
     }
     assert_equal shifts, month.shifts_times
+  end
+
+  test "should have closing days" do
+    month = Shifts::Bosch64.new year: 2022, month: 12
+    assert month.at(Faker::Number.within(range: 24..26))[:closed], "X-mas"
+    
+    month = Shifts::Bosch64.new year: 2023, month: 4
+    assert month.at(Faker::Number.within(range: 7..10))[:closed], "Easter 2023"
+
+    month = Shifts::Bosch64.new year: 2022, month: 4
+    assert month.at(Faker::Number.within(range: 15..18))[:closed], "Easter 2022"
   end
 end

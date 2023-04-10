@@ -12,14 +12,18 @@ class Shifts::Bosch64 < Shifts::Base
   @@shift_cycle_length = 10
   @@groups = 5
 
+  # Get shifts data for a day im month.
+  # Returns a Hash with shifts: Array => Shifts of every group
+  # And with closed: Boolean => If on that day is a closing day
   def at(day)
     days = days_in_cycle(day)
-    Array.new @@groups do |index|
+    shifts = Array.new @@groups do |index|
       group = index + 1
       days_offsetted = days + group_offset(group)
       days_offsetted -= @@shift_cycle_length if days_offsetted >= @@shift_cycle_length
       shift group, days_offsetted
     end
+    { closed: closed?(day), shifts: }
   end
 
   private

@@ -27,6 +27,7 @@
     <tbody>
       <% month.each_with_date do |data, date| %>
         <%= tag.tr id: "day_#{date.iso8601}", class: {
+          closed: data[:closed],
           weekend: date.sunday? || date.saturday?,
           today: date.today?
         } do %>
@@ -38,8 +39,10 @@
           <% end %>
 
           <%# Day in month column %>
-          <% if dls == date || public_events.has_key?(date) %>
-            <% titles = (public_events[date] || []).map(&:name) + (dls == date ? [daylight_saving_text(date)] : []) %>
+          <% if data[:closed] || dls == date || public_events.has_key?(date) %>
+            <% titles = (public_events[date] || []).map(&:name) +
+              (dls == date ? [daylight_saving_text(date)] : []) +
+              (data[:closed] ? [t("calendar.closed")] : []) %>
             <%= tag.td(
               title: titles.join("\r\n"),
               class: [
@@ -71,7 +74,7 @@
           </td>
 
           <%# shifts columns %>
-          <% data.each_with_index do |shift, index| %>
+          <% data[:shifts].each_with_index do |shift, index| %>
             <% if shift == :free %>
               <td class="shift_cell"></td>
             <% else %>

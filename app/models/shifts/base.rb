@@ -23,8 +23,11 @@ class Shifts::Base
     0
   end
 
+  # Get shifts data for a day im month.
+  # Returns a Hash with shifts: Array => Shifts of every group
+  # And with closed: Boolean => If on that day is a closing day
   def at(day)
-    []
+    { closed: false, shifts: [] }
   end
 
   def [](day)
@@ -53,7 +56,7 @@ class Shifts::Base
     return @work_data unless @work_data.nil?
     work_data = Array.new(groups, 0)
     month_data.each_with_index do |data, index|
-      data.each_with_index do |shift, index|
+      data[:shifts].each_with_index do |shift, index|
         work_data[index] += 1 unless shift == :free
       end
     end
@@ -100,5 +103,30 @@ class Shifts::Base
       @data = Array.new size do |index|
         at(index + 1).freeze
       end.freeze
+    end
+
+    def closed?(day)
+      return true if @month == 12 && (24..26).include?(day)
+      if @month == 3 || @month == 4
+        days_in = day + (month == 4 ? 31 : 0)
+        return easter.include?(days_in)
+      end
+      false
+    end
+
+    # Gauss's Easter algorithm  https://en.wikipedia.org/wiki/Computus#Gauss's_Easter_algorithm
+    def easter
+      return @easter unless @easter.nil?
+      year_float = @year.to_f
+      k = @year / 100
+      m = 15 + k - (k / 3) - (k / 4)
+      n = 5
+      a = ((year_float / 19).modulo(1) * 19).round
+      b = ((year_float / 4).modulo(1) * 4).round
+      c = ((year_float / 7).modulo(1) * 7).round
+      d = (((19 * a + m).to_f / 30).modulo(1) * 30).round
+      e = (((2 * b + 4 * c + 6 * d + n).to_f / 7.0).modulo(1) * 7).round
+      easter_sunday = 22 + d + e
+      @easter = (easter_sunday - 2)..(easter_sunday + 1)
     end
 end
