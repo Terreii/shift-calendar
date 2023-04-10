@@ -3,9 +3,9 @@ class Shifts::Base
 
   def self.create(key, options)
     case key
-    when "bosch-6-6", :bosch66
+    when Shifts::Bosch66.identifier, :bosch66
       Shifts::Bosch66
-    when "bosch-6-4", :bosch64
+    when Shifts::Bosch64.identifier, :bosch64
       Shifts::Bosch64
     else
       return nil

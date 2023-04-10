@@ -1,6 +1,7 @@
 class Shifts::Bosch66 < Shifts::Base
-  mattr_reader :groups
+  mattr_reader :groups, :identifier
 
+  @@identifier = "bosch-6-6"
   @@start_date = Date.new(2010, 4, 4)
   @@group_offsets = {
     1 => 8,
