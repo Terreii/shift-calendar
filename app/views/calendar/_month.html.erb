@@ -39,6 +39,11 @@
           <% end %>
 
           <%# Day in month column %>
+          <td class="day_in_month">
+            <%= tag.time date.day, datetime: date.iso8601 %>
+          </td>
+
+          <%# Week day column %>
           <% if data[:closed] || dls == date || public_events.has_key?(date) %>
             <% titles = (public_events[date] || []).map(&:name) +
               (dls == date ? [daylight_saving_text(date)] : []) +
@@ -46,7 +51,7 @@
             <%= tag.td(
               title: titles.join("\r\n"),
               class: [
-                "day_in_month",
+                "weekday",
                 "day_with_event",
                 public_events.has_key?(date) && public_events[date].map { |event| dom_class(event) },
                 { daylight_saving: dls == date }
@@ -62,16 +67,13 @@
                 bs_title: titles.join("<br>")
               }
             ) do %>
-              <%= tag.time(date.day, datetime: date.iso8601) %>
+              <%= screen_reader_long_text date.strftime("%a"), date.strftime("%A") %>
             <% end %>
           <% else %>
-            <%= tag.td tag.time(date.day, datetime: date.iso8601), class: "day_in_month" %>
+            <td class="weekday">
+              <%= screen_reader_long_text date.strftime("%a"), date.strftime("%A") %>
+            </td>
           <% end %>
-
-          <%# Week day column %>
-          <td class="weekday">
-            <%= screen_reader_long_text date.strftime("%a"), date.strftime("%A") %>
-          </td>
 
           <%# shifts columns %>
           <% data[:shifts].each_with_index do |shift, index| %>
