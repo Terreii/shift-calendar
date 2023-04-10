@@ -40,7 +40,9 @@
 
           <%# Day in month column %>
           <td class="day_in_month">
-            <%= tag.time date.day, datetime: date.iso8601 %>
+            <a href="#day_<%= date.iso8601 %>" target="_top">
+              <%= tag.time date.day, datetime: date.iso8601 %>
+            </a>
           </td>
 
           <%# Week day column %>
