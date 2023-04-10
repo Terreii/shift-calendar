@@ -64,6 +64,10 @@
   }
 }
 
+.day_in_month > a {
+  color: var(--bs-body-color);
+}
+
 .shift_calendar__caption {
   position: sticky;
   top: 3rem;
