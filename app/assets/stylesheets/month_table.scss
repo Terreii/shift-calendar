@@ -53,6 +53,9 @@
     }
     td:last-child {
       border-right-width: 3px;
+      &:not(.current_shift) {
+        padding-left: 7px;
+      }
     }
     .day_in_month, .weekday, .shift_cell {
       border-top-width: 3px;
