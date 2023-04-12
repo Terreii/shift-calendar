@@ -42,12 +42,20 @@
     border-top-width: 1px;
   }
 
+  .day_in_month {
+    padding: 0px;
+  }
+
   .today {
     .day_in_month {
       border-left-width: 3px;
+      padding-right: 2px;
     }
     td:last-child {
       border-right-width: 3px;
+      &:not(.current_shift) {
+        padding-left: 7px;
+      }
     }
     .day_in_month, .weekday, .shift_cell {
       border-top-width: 3px;
@@ -65,6 +73,7 @@
 }
 
 .day_in_month > a {
+  display: block;
   color: var(--bs-body-color);
 }
 
