@@ -52,4 +52,74 @@ class ShiftTest < ActiveSupport::TestCase
     }
     assert_equal shifts, month.shifts_times
   end
+
+  test "returns the shifts of every group for a day" do
+    month = Shift.new :bosch_6_6, year: 2022, month: 8
+    assert_equal ({
+      closed: false,
+      shifts: [:free, :m, :n, :free, :e, :free]
+    }), month.at(22), "bosch_6_6 2022-08-22"
+    assert_equal ({
+      closed: false,
+      shifts: [:free, :e, :free, :m, :n, :free]
+    }), month.at(23), "bosch_6_6 2022-08-23"
+
+    month = Shift.new :bosch_6_6, year: 2023, month: 12
+    assert_equal ({
+      closed: false,
+      shifts: [:m, :free, :free, :n, :free, :e]
+    }), month.at(8), "bosch_6_6 2023-12-08"
+    assert_equal ({
+      closed: true,
+      shifts: [:n, :free, :e, :free, :m, :free]
+    }), month.at(24), "bosch_6_6 2023-12-24"
+
+    # Other model
+    month = Shift.new :bosch_6_4, year: 2022, month: 8
+    assert_equal ({
+      closed: false,
+      shifts: [:free, :m, :e, :n, :free]
+    }), month.at(22), "bosch_6_4 2022-08-22"
+    assert_equal ({
+      closed: false,
+      shifts: [:e, :m, :n, :free, :free]
+    }), month.at(23), "bosch_6_4 2022-08-23"
+
+    month = Shift.new :bosch_6_4, year: 2023, month: 12
+    assert_equal ({
+      closed: false,
+      shifts: [:n, :e, :free, :free, :m]
+    }), month.at(8), "bosch_6_4 2022-12-08"
+    assert_equal ({
+      closed: true,
+      shifts: [:free, :m, :e, :n, :free]
+    }), month.at(24), "bosch_6_4 2022-12-24"
+  end
+
+  test "should have a [] method" do
+    month = Shift.new :bosch_6_6, year: 2022, month: 8
+    day = rand(1..month.size)
+    assert_equal month.at(day), month[day]
+  end
+
+  test "it iterates through all days in a month" do
+    month = Shift.new :bosch_6_6, year: 2022, month: 8
+    month.each_with_index do |day, index|
+      assert_equal month.at(index + 1), day
+    end
+  end
+
+  test "should return self from each" do
+    month = Shift.new :bosch_6_4, year: 2022, month: 8
+    result = month.each { |day| }
+    assert_equal month, result
+  end
+
+  test "should have an each_with_date method" do
+    month = Shift.new :bosch_6_4, year: 2022, month: 8
+    month.each_with_date do |day, date|
+      assert_equal month.at(date.day), day
+      assert_instance_of Date, date
+    end
+  end
 end
