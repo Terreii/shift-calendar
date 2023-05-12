@@ -122,4 +122,25 @@ class ShiftTest < ActiveSupport::TestCase
       assert_instance_of Date, date
     end
   end
+
+  test "should have a work_days_count method" do
+    month = Shift.new :bosch_6_6, year: 2022, month: 10
+    assert_equal [18, 13, 16, 15, 14, 17], month.work_days_count
+  end
+
+  test "should have a current_working_shift method" do
+    month = Shift.new :bosch_6_6, year: 2022, month: 10
+
+    travel_to Time.zone.local(2022, 10, 10, rand(0..5), 0, 0)
+    assert_equal [:n, Date.yesterday], month.current_working_shift
+
+    travel_to Time.zone.local(2022, 10, 8, rand(6..13), 0, 0)
+    assert_equal [:m, Date.current], month.current_working_shift
+
+    travel_to Time.zone.local(2023, 2, 14, rand(14..21), 0, 0)
+    assert_equal [:e, Date.current], month.current_working_shift
+
+    travel_to Time.zone.local(2023, 2, 14, rand(22..23), 0, 0)
+    assert_equal [:n, Date.current], month.current_working_shift
+  end
 end

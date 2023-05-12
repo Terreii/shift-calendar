@@ -64,6 +64,37 @@ class Shift
     end
   end
 
+  # Returns an array with the count of days every group works in this month.
+  def work_days_count
+    return @work_data unless @work_data.nil?
+    work_data = Array.new(groups, 0)
+    month_data.each do |data|
+      data[:shifts].each_with_index do |shift, index|
+        work_data[index] += 1 unless shift == :free
+      end
+    end
+    @work_data = work_data.freeze
+  end
+
+  # Returns a tuple of the current shift symbol and a date.
+  # The date is today or yesterday, depending on the day the shift started.
+  # It always returns the tuple, even if this shift is not for the current month.
+  def current_working_shift
+    now = Time.zone.now
+    hour = now.hour
+    key, value = shifts_times.find do |key, times|
+      start = times[:start]
+      finish = times[:finish]
+      if start[0] > finish[0] # if shift goes into the next day
+        next start[0] <= hour || finish[0] > hour
+      end
+      start[0] <= hour && finish[0] > hour
+    end
+    date = now.to_date
+    start_date = value[:start][0] > value[:finish][0] && hour < value[:finish][0] ? date.yesterday : date
+    [key, start_date]
+  end
+
   private
 
     # Caches all calculated day data
