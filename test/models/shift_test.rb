@@ -143,4 +143,17 @@ class ShiftTest < ActiveSupport::TestCase
     travel_to Time.zone.local(2023, 2, 14, rand(22..23), 0, 0)
     assert_equal [:n, Date.current], month.current_working_shift
   end
+
+  test "should have closing days" do
+    [:bosch_6_6, :bosch_6_4].each do |model|
+      month = Shift.new model, year: 2022, month: 12
+      assert month.at(Faker::Number.within(range: 24..26))[:closed], "X-mas #{model}"
+
+      month = Shift.new model, year: 2023, month: 4
+      assert month.at(Faker::Number.within(range: 7..10))[:closed], "Easter 2023 #{model}"
+
+      month = Shift.new model, year: 2022, month: 4
+      assert month.at(Faker::Number.within(range: 15..18))[:closed], "Easter 2022 #{model}"
+    end
+  end
 end

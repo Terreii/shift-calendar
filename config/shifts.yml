@@ -13,9 +13,17 @@ bosch_konti_base: &bosch_konti_base
       start: [22, 00]
       finish: [6, 30]
   closing_days:
-    - "12-24"
-    - "12-25"
-    - "12-26"
+    - relative: -2
+      from: easter
+    - relative: -1
+      from: easter
+    - relative: 0
+      from: easter
+    - relative: 1
+      from: easter
+    - date: [12, 24]
+    - date: [12, 25]
+    - date: [12, 26]
 
 shared:
   bosch_6_6:

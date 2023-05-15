@@ -120,11 +120,35 @@ class Shift
 
     # Check if the day is a closing day
     def closed?(day)
-      return true if @month == 12 && (24..26).include?(day)
+      is_closed = @config[:closing_days].any? do |closing_day|
+        if closing_day.key? :date
+          month, day_in_month = closing_day[:date]
+          month == @month && day_in_month == day
+        else
+          false
+        end
+      end
+      return true if is_closed
       if @month == 3 || @month == 4
         days_in = day + (month == 4 ? 31 : 0)
         return easter.include?(days_in)
       end
       false
+    end
+
+    # Gauss's Easter algorithm  https://en.wikipedia.org/wiki/Computus#Gauss's_Easter_algorithm
+    def easter
+      return @easter unless @easter.nil?
+      year_float = @year.to_f
+      k = @year / 100
+      m = 15 + k - (k / 3) - (k / 4)
+      n = 5
+      a = ((year_float / 19).modulo(1) * 19).round
+      b = ((year_float / 4).modulo(1) * 4).round
+      c = ((year_float / 7).modulo(1) * 7).round
+      d = (((19 * a + m).to_f / 30).modulo(1) * 30).round
+      e = (((2 * b + 4 * c + 6 * d + n).to_f / 7.0).modulo(1) * 7).round
+      easter_sunday = 22 + d + e
+      @easter = (easter_sunday - 2)..(easter_sunday + 1)
     end
 end
