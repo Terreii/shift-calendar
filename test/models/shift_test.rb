@@ -156,4 +156,11 @@ class ShiftTest < ActiveSupport::TestCase
       assert month.at(Faker::Number.within(range: 15..18))[:closed], "Easter 2022 #{model}"
     end
   end
+  
+  test "should have an identifier method" do
+    [:bosch_6_6, :bosch_6_4].each do |model|
+      month = Shift.new model, year: 2023, month: 5
+      assert_equal model, month.identifier
+    end
+  end
 end

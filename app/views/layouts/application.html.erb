@@ -35,7 +35,7 @@
                 <%= t "nav.shifts" %>
               </a>
               <ul class="dropdown-menu">
-                <% ["bosch-6-6", "bosch-6-4"].each do |shift| %>
+                <% ["bosch_6_6", "bosch_6_4"].each do |shift| %>
                   <li>
                     <%= link_to t(shift, scope: "shift_model"), calendar_path(shift), class: "dropdown-item" %>
                   </li>

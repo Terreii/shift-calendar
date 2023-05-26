@@ -34,8 +34,8 @@ en:
     shifts: "Shifts"
 
   shift_model:
-    bosch-6-6: "Bosch 6 - 6"
-    bosch-6-4: "Bosch 6 - 4"
+    bosch_6_6: "Bosch 6 - 6"
+    bosch_6_4: "Bosch 6 - 4"
 
   calendar:
     nav:

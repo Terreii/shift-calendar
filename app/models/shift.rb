@@ -95,6 +95,11 @@ class Shift
     [key, start_date]
   end
 
+  # Returns the used shift model's symbol
+  def identifier
+    @shift_model
+  end
+
   private
 
     # Caches all calculated day data
