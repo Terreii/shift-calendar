@@ -120,18 +120,22 @@ class Shift
 
     # Check if the day is a closing day
     def closed?(day)
-      is_closed = @config[:closing_days].any? do |closing_day|
+      @config[:closing_days].any? do |closing_day|
         if closing_day.key? :date
           month, day_in_month = closing_day[:date]
           month == @month && day_in_month == day
+        elsif closing_day.key? :relative
+          check_relative_closing_day(day, closing_day)
         else
           false
         end
       end
-      return true if is_closed
-      if @month == 3 || @month == 4
-        days_in = day + (month == 4 ? 31 : 0)
-        return easter.include?(days_in)
+    end
+
+    def check_relative_closing_day(day, closing_day)
+      if closing_day[:from] == "easter"
+        yday = Date.new(@year, @month, day).yday
+        return yday == easter + closing_day[:relative] 
       end
       false
     end
@@ -148,7 +152,6 @@ class Shift
       c = ((year_float / 7).modulo(1) * 7).round
       d = (((19 * a + m).to_f / 30).modulo(1) * 30).round
       e = (((2 * b + 4 * c + 6 * d + n).to_f / 7.0).modulo(1) * 7).round
-      easter_sunday = 22 + d + e
-      @easter = (easter_sunday - 2)..(easter_sunday + 1)
+      @easter = 22 + d + e - 1 + Date.new(@year, 3, 1).yday
     end
 end
