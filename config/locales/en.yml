@@ -51,14 +51,10 @@ en:
     sum: "Sum"
     sum_info: "Sum of days on which a group did work in this month"
     groups: "Groups"
-    shifts:
-      morning: "M"
-      evening: "E"
-      night: "N"
     shifts_long:
-      morning: "Morning Shift"
-      evening: "Evening Shift"
-      night: "Night Shift"
+      m: "Morning Shift"
+      e: "Evening Shift"
+      n: "Night Shift"
     dls:
       forward: "Daylight saving switch! The clock is turned 1 hour forward (from 2am to 3am)."
       back: "Daylight saving switch! The clock is turned 1 hour back (from 3am to 2am)."

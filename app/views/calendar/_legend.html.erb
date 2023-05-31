@@ -1,7 +1,7 @@
 <section class="d-flex flex-column flex-md-row">
   <dl class="legend_column">
     <% shift.shifts_times.each do |key, times| %>
-      <%= tag.dt t(key, scope: "calendar.shifts"), class: "legend_cell" %>
+      <%= tag.dt key.to_s.upcase, class: "legend_cell" %>
       <dd id="<%= key %>_shift_description">
         <%= t(key, scope: "calendar.shifts_long") %>
         <br>

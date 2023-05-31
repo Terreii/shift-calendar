@@ -46,11 +46,11 @@ class MonthCalendarsTest < ApplicationSystemTestCase
     click_on "Shifts"
     click_on "Bosch 6 - 4"
     today = Date.current
-    shift = Shifts::Bosch64.new(year: today.year, month: today.month)
+    shift = Shift.new(:bosch_6_4, year: today.year, month: today.month)
 
     shift.at(today.day)[:shifts].each_with_index do |shift, index|
       unless shift == :free
-        assert_selector "#day_#{today.iso8601} > :nth-last-child(#{5 - index})", text: I18n.t(shift, scope: "calendar.shifts")
+        assert_selector "#day_#{today.iso8601} > :nth-last-child(#{5 - index})", text: shift.to_s.upcase
       end
     end
   end
