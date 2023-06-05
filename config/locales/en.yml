@@ -30,6 +30,10 @@
 # available at https://guides.rubyonrails.org/i18n.html.
 
 en:
+  home:
+    title: "Willkommen zum inoffiziellen Schichtkalender für Bosch Reutlingen!"
+    question: "Welches Schichtmodell interessiert sie?"
+    change_model_info: "Sie können das Modell später jederzeit im Menü das Menü ist oben rechtsumändern."
   nav:
     shifts: "Shifts"
 
