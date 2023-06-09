@@ -22,7 +22,7 @@ class MonthCalendarsTest < ApplicationSystemTestCase
   test "visiting the calendar url shows the current month" do
     visit root_path
     click_on "Shifts"
-    click_on "Bosch 6 - 6"
+    first(:link, "Bosch 6 - 6").click
 
     today = Date.current
 
@@ -44,7 +44,7 @@ class MonthCalendarsTest < ApplicationSystemTestCase
   test "visiting a calendar url shows the selected shift" do
     visit root_path
     click_on "Shifts"
-    click_on "Bosch 6 - 4"
+    first(:link, "Bosch 6 - 4").click
     today = Date.current
     shift = Shift.new(:bosch_6_4, year: today.year, month: today.month)
 
