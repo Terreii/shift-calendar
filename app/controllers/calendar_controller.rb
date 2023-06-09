@@ -8,7 +8,7 @@ class CalendarController < ApplicationController
     year = year_param
     @is_selected_month = params.has_key?(:month)
     month = @is_selected_month ? params[:month].to_i : Date.current.month
-    @shift = Shifts::Base.create params[:id], year: year, month: month
+    @shift = Shift.new params[:id], year: year, month: month
     if @shift.nil?
       not_found
     end
@@ -23,16 +23,23 @@ class CalendarController < ApplicationController
     end
 
     @public_events = PublicEvent.all_in_month year, month
+  rescue Shift::ModelUnknown
+    not_found
   end
 
   # GET /calendar/1/2023
   def year
     @year = year_param
-    not_found if Shifts::Base.create(params[:id], year: @year, month: 1).nil?
+    begin
+      Shift.new(params[:id], year: @year, month: 1)
+    rescue
+      not_found
+      return
+    end
 
     @months = []
     12.times do |index|
-      shift = Shifts::Base.create params[:id], year: @year, month: index + 1
+      shift = Shift.new params[:id], year: @year, month: index + 1
       @months << shift
     end
 

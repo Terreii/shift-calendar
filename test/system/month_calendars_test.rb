@@ -2,7 +2,7 @@ require "application_system_test_case"
 
 class MonthCalendarsTest < ApplicationSystemTestCase
   test "visiting a month calendar url" do
-    visit month_calendar_path(id: "bosch-6-6", year: 2022, month: 8)
+    visit month_calendar_path(id: "bosch_6_6", year: 2022, month: 8)
 
     assert_selector "#month_2022-8 caption", text: "August - 2022"
     assert_selector "#day_2022-08-13 > :first-child", text: "13"
@@ -22,19 +22,19 @@ class MonthCalendarsTest < ApplicationSystemTestCase
   test "visiting the calendar url shows the current month" do
     visit root_path
     click_on "Shifts"
-    click_on "Bosch 6 - 6"
+    first(:link, "Bosch 6 - 6").click
 
     today = Date.current
 
     table = find("#month_#{today.year}-#{today.month}").native.attribute('outerHTML')
     assert_not_empty table
 
-    visit month_calendar_path(id: "bosch-6-6", year: today.year, month: today.month)
+    visit month_calendar_path(id: "bosch_6_6", year: today.year, month: today.month)
     assert_equal find("#month_#{today.year}-#{today.month}").native.attribute('outerHTML'), table
   end
 
   test "visiting a month calendar url shows the selected shift" do
-    visit month_calendar_path(id: "bosch-6-4", year: 2022, month: 8)
+    visit month_calendar_path(id: "bosch_6_4", year: 2022, month: 8)
 
     ['E', 'M', 'N', '', ''].each_with_index do |text, index|
       assert_selector "#day_2022-08-13 > :nth-child(#{index + 3})", text:
@@ -44,19 +44,19 @@ class MonthCalendarsTest < ApplicationSystemTestCase
   test "visiting a calendar url shows the selected shift" do
     visit root_path
     click_on "Shifts"
-    click_on "Bosch 6 - 4"
+    first(:link, "Bosch 6 - 4").click
     today = Date.current
-    shift = Shifts::Bosch64.new(year: today.year, month: today.month)
+    shift = Shift.new(:bosch_6_4, year: today.year, month: today.month)
 
     shift.at(today.day)[:shifts].each_with_index do |shift, index|
       unless shift == :free
-        assert_selector "#day_#{today.iso8601} > :nth-last-child(#{5 - index})", text: I18n.t(shift, scope: "calendar.shifts")
+        assert_selector "#day_#{today.iso8601} > :nth-last-child(#{5 - index})", text: shift.to_s.upcase
       end
     end
   end
 
   test "month calendar url loads last and next two months" do
-    visit month_calendar_path(id: "bosch-6-4", year: 2021, month: 4)
+    visit month_calendar_path(id: "bosch_6_4", year: 2021, month: 4)
 
     assert_selector "#month_2021-3 caption", text: "March - 2021"
     assert_selector "#month_2021-4 caption", text: "April - 2021"
@@ -65,7 +65,7 @@ class MonthCalendarsTest < ApplicationSystemTestCase
   end
 
   test "should highlight today" do
-    visit calendar_path(id: "bosch-6-4")
+    visit calendar_path(id: "bosch_6_4")
 
     # Border for the row
     assert_selector "tr#day_#{Date.current.iso8601}.today"
@@ -78,7 +78,7 @@ class MonthCalendarsTest < ApplicationSystemTestCase
   end
 
   test "should highlight today in year_calendar_path" do
-    visit year_calendar_path(id: "bosch-6-4", year: Date.current.year)
+    visit year_calendar_path(id: "bosch_6_4", year: Date.current.year)
 
     # Border for the row
     assert_selector "tr#day_#{Date.current.iso8601}.today"
@@ -91,7 +91,7 @@ class MonthCalendarsTest < ApplicationSystemTestCase
   end
 
   test "should display tooltip for events" do
-    visit month_calendar_path(id: "bosch-6-6", year: 2023, month: 3)
+    visit month_calendar_path(id: "bosch_6_6", year: 2023, month: 3)
 
     assert_selector "td.daylight_saving"
     element = find("td.daylight_saving")

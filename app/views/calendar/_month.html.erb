@@ -88,7 +88,7 @@
               <td class="shift_cell"></td>
             <% else %>
               <%= tag.td(
-                t("calendar.shifts.#{shift}"),
+                shift.to_s.upcase,
                 class: [
                   "shift_cell",
                   "group_#{index + 1}",

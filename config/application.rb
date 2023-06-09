@@ -20,5 +20,7 @@ module ShiftCalendarRt
     config.time_zone = "Berlin"
     # config.eager_load_paths << Rails.root.join("extras")
     config.beginning_of_week = :monday
+
+    config.x.shifts = config_for(:shifts)
   end
 end

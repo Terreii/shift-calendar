@@ -30,12 +30,16 @@
 # available at https://guides.rubyonrails.org/i18n.html.
 
 en:
+  home:
+    title: "Willkommen zum inoffiziellen Schichtkalender für Bosch Reutlingen!"
+    question: "Welches Schichtmodell interessiert sie?"
+    change_model_info: "Sie können das Modell später jederzeit im Menü das Menü ist oben rechtsumändern."
   nav:
     shifts: "Shifts"
 
   shift_model:
-    bosch-6-6: "Bosch 6 - 6"
-    bosch-6-4: "Bosch 6 - 4"
+    bosch_6_6: "Bosch 6 - 6"
+    bosch_6_4: "Bosch 6 - 4"
 
   calendar:
     nav:
@@ -51,14 +55,10 @@ en:
     sum: "Sum"
     sum_info: "Sum of days on which a group did work in this month"
     groups: "Groups"
-    shifts:
-      morning: "M"
-      evening: "E"
-      night: "N"
     shifts_long:
-      morning: "Morning Shift"
-      evening: "Evening Shift"
-      night: "Night Shift"
+      m: "Morning Shift"
+      e: "Evening Shift"
+      n: "Night Shift"
     dls:
       forward: "Daylight saving switch! The clock is turned 1 hour forward (from 2am to 3am)."
       back: "Daylight saving switch! The clock is turned 1 hour back (from 3am to 2am)."

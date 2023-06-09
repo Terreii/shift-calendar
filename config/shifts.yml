@@ -1,0 +1,41 @@
+bosch_konti_base: &bosch_konti_base
+  shifts:
+    m:
+      name: morning
+      start: [6, 0]
+      finish: [14, 30]
+    e: 
+      name: evening
+      start: [14, 00]
+      finish: [22, 30]
+    n:
+      name: night
+      start: [22, 00]
+      finish: [6, 30]
+  closing_days:
+    - relative: -2
+      from: easter
+    - relative: -1
+      from: easter
+    - relative: 0
+      from: easter
+    - relative: 1
+      from: easter
+    - date: [12, 24]
+    - date: [12, 25]
+    - date: [12, 26]
+
+shared:
+  bosch_6_6:
+    <<: *bosch_konti_base
+    cycle: [m, m, e, e, n, n, null, null, null, null, null, null]
+    group_offsets: [9, 3, 7, 1, 5, 11]
+
+  bosch_6_4:
+    <<: *bosch_konti_base
+    cycle: [m, m, e, e, n, n, null, null, null, null]
+    group_cycles:
+      0: [e, e, n, n, n, n, null, null, null, null]
+      1: [m, m, m, m, e, e, null, null, null, null]
+    group_offsets: [5, 7, 9, 1, 3]
+

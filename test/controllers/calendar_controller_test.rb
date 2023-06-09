@@ -7,12 +7,12 @@ class CalendarControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should get show" do
-    get calendar_path(id: "bosch-6-6")
+    get calendar_path(id: "bosch_6_6")
     assert_response :success
   end
 
   test "should get year" do
-    get year_calendar_path(id: "bosch-6-6", year: 2022)
+    get year_calendar_path(id: "bosch_6_6", year: 2022)
     assert_response :success
 
     12.times do |index|
@@ -21,12 +21,12 @@ class CalendarControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should get month" do
-    get month_calendar_path(id: "bosch-6-6", year: 2023, month: 2)
+    get month_calendar_path(id: "bosch_6_6", year: 2023, month: 2)
     assert_response :success
   end
 
   test "should select shift model" do
-    get month_calendar_path(id: "bosch-6-6", year: 2022, month: 6)
+    get month_calendar_path(id: "bosch_6_6", year: 2022, month: 6)
     assert_response :success
   end
 
@@ -37,23 +37,23 @@ class CalendarControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should have last and next two months as turbo frame" do
-    get month_calendar_path(id: "bosch-6-6", year: 2023, month: 2)
+    get month_calendar_path(id: "bosch_6_6", year: 2023, month: 2)
     assert_match "February - 2023", @response.body
 
     [1, 3, 4].each do |month|
-      assert_match month_calendar_path(id: "bosch-6-6", year: 2023, month:), @response.body
+      assert_match month_calendar_path(id: "bosch_6_6", year: 2023, month:), @response.body
     end
   end
 
   test "should have the daylight saving time switch" do
-    get month_calendar_path(id: "bosch-6-6", year: 2022, month: 3)
+    get month_calendar_path(id: "bosch_6_6", year: 2022, month: 3)
     body = Nokogiri.parse @response.body
     elements = body.css("td.daylight_saving")
     assert_equal 1, elements.length
     assert_equal "day_2022-03-27", elements.first.parent[:id]
     assert_equal I18n.t("calendar.dls.forward"), elements.first[:title]
 
-    get month_calendar_path(id: "bosch-6-6", year: 2022, month: 10)
+    get month_calendar_path(id: "bosch_6_6", year: 2022, month: 10)
     body = Nokogiri.parse @response.body
     element = body.at_css("td.daylight_saving")
     assert_equal "day_2022-10-30", element.parent[:id]
@@ -62,7 +62,7 @@ class CalendarControllerTest < ActionDispatch::IntegrationTest
 
   test "should highlight today" do
     travel_to Time.zone.parse("2022-10-10 04:00:00")
-    get calendar_path(id: "bosch-6-4")
+    get calendar_path(id: "bosch_6_4")
     body = Nokogiri.parse @response.body
 
     # Border for the row
@@ -73,7 +73,7 @@ class CalendarControllerTest < ActionDispatch::IntegrationTest
 
   test "should highlight today in year_calendar_path" do
     travel_to Time.zone.parse("2022-10-10 04:00:00")
-    get year_calendar_path(id: "bosch-6-4", year: 2022)
+    get year_calendar_path(id: "bosch_6_4", year: 2022)
     body = Nokogiri.parse @response.body
 
     # Border for the row
@@ -83,7 +83,7 @@ class CalendarControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should mark holidays" do
-    get month_calendar_path(id: "bosch-6-6", year: 2022, month: 5)
+    get month_calendar_path(id: "bosch_6_6", year: 2022, month: 5)
     body = Nokogiri.parse @response.body
 
     assert_not_nil body.at_css("tr#day_2022-05-01 > .holiday")
@@ -92,7 +92,7 @@ class CalendarControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should mark holidays in year" do
-    get year_calendar_path(id: "bosch-6-4", year: 2022)
+    get year_calendar_path(id: "bosch_6_4", year: 2022)
     body = Nokogiri.parse @response.body
 
     assert_not_nil body.at_css("tr#day_2022-05-01 > .holiday")
@@ -102,20 +102,20 @@ class CalendarControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should support multiple public_events on a day" do
-    get month_calendar_path(id: "bosch-6-6", year: 2022, month: 8)
+    get month_calendar_path(id: "bosch_6_6", year: 2022, month: 8)
     body = Nokogiri.parse @response.body
 
     assert_not_nil body.at_css("tr#day_2022-08-08 > .holiday.school_break")
   end
 
   test "should show closed days" do
-    get month_calendar_path(id: "bosch-6-6", year: 2022, month: 4)
+    get month_calendar_path(id: "bosch_6_6", year: 2022, month: 4)
     body = Nokogiri.parse @response.body
     (15..18).each do |day|
       assert_not_nil body.at_css("tr#day_2022-04-#{day}.closed"), "Day 2022-04-#{day}"
     end
 
-    get month_calendar_path(id: "bosch-6-6", year: 2022, month: 12)
+    get month_calendar_path(id: "bosch_6_6", year: 2022, month: 12)
     body = Nokogiri.parse @response.body
     (24..26).each do |day|
       assert_not_nil body.at_css("tr#day_2022-12-#{day}.closed"), "Day 2022-12-#{day}"
