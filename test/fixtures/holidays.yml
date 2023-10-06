@@ -15,7 +15,6 @@
 #  index_public_events_on_type               (type)
 #  index_public_events_on_type_and_duration  (type,duration)
 #
-# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
   type: <%= Holiday.name %>
