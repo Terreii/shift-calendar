@@ -30,5 +30,7 @@
   shift_update_shifts_value: @months[0].shifts_times.to_json,
   shift_update_zone_offset_value: Time.current.utc_offset
 } do %>
-  <%= render partial: "month", collection: @months, locals: { public_events: @public_events } %>
+  <% @months.each do |month| %>
+    <%= render partial: "month", locals: { month:, public_events: @public_events } %>
+  <% end %>
 <% end %>

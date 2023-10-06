@@ -10,7 +10,7 @@ class CalendarController < ApplicationController
     month = @is_selected_month ? params[:month].to_i : Date.current.month
     @shift = Shift.new params[:id], year: year, month: month
     if @shift.nil?
-      not_found
+      not_found root_path
     end
     month_date = Date.new(year, month, 1)
     @previous_month = month_date.prev_month
@@ -24,7 +24,7 @@ class CalendarController < ApplicationController
 
     @public_events = PublicEvent.all_in_month year, month
   rescue Shift::ModelUnknown
-    not_found
+    not_found root_path
   end
 
   # GET /calendar/1/2023
@@ -33,7 +33,7 @@ class CalendarController < ApplicationController
     begin
       Shift.new(params[:id], year: @year, month: 1)
     rescue
-      not_found
+      not_found root_path
       return
     end
 

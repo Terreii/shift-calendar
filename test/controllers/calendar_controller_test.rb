@@ -30,10 +30,9 @@ class CalendarControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
-  test "should error if shift model doesn't exist" do
-    assert_raises(ActionController::RoutingError) do 
-      get month_calendar_path(id: "some-other", year: 2022, month: 6)
-    end
+  test "should redirect to root_path if shift model doesn't exist" do
+    get month_calendar_path(id: "some-other", year: 2022, month: 6)
+    assert_redirected_to root_path
   end
 
   test "should have last and next two months as turbo frame" do
