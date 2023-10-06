@@ -1,4 +1,4 @@
-<%# locals: (month:) -%>
+<%# locals: (month:, public_events:) -%>
 <%# month is an instance of a Shift::Base sub class. %>
 
 <% dls = Date.new(month.year, month.month, month.length).last_week.sunday if month.month == 3 || month.month == 10 %>
