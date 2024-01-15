@@ -1,9 +1,9 @@
-<%# locals: (month:, public_events:) -%>
+<%# locals: (month:, public_events:, css_class: "") -%>
 <%# month is an instance of a Shift::Base sub class. %>
 
 <% dls = Date.new(month.year, month.month, month.length).last_week.sunday if month.month == 3 || month.month == 10 %>
 
-<%= turbo_frame_tag "month_#{month.year}-#{month.month}", class: "g-col-12 g-col-md-6 g-col-lg-4 g-col-xl-3" do %>
+<%= turbo_frame_tag "month_#{month.year}-#{month.month}", class: ["g-col-12 g-col-md-6 g-col-lg-4 g-col-xl-3", css_class] do %>
   <table class="table table-sm border-dark shift_calendar">
     <caption class="shift_calendar__caption">
       <%= t("date.month_names")[month.month] %> - <%= month.year %>

@@ -44,7 +44,8 @@
     <%= render(
       "month",
       month: Shift.new(params[:id], year: @previous_month.year, month: @previous_month.month),
-      public_events: PublicEvent.all_in_month(@previous_month.year, @previous_month.month)
+      public_events: PublicEvent.all_in_month(@previous_month.year, @previous_month.month),
+      css_class: "d-none d-xl-block",
     ) %>
   <% else %>
     <%= turbo_frame_tag(
@@ -64,7 +65,8 @@
     <%= render(
       "month",
       month: Shift.new(params[:id], year: @next_month.year, month: @next_month.month),
-      public_events: PublicEvent.all_in_month(@next_month.year, @next_month.month)
+      public_events: PublicEvent.all_in_month(@next_month.year, @next_month.month),
+      css_class: "d-none d-md-block",
     ) %>
   <% else %>
     <%= turbo_frame_tag(
@@ -83,7 +85,8 @@
     <%= render(
       "month",
       month: Shift.new(params[:id], year: month_after_next.year, month: month_after_next.month),
-      public_events: PublicEvent.all_in_month(month_after_next.year, month_after_next.month)
+      public_events: PublicEvent.all_in_month(month_after_next.year, month_after_next.month),
+      css_class: "d-none d-lg-block",
     ) %>
   <% else %>
     <%= turbo_frame_tag(
