@@ -23,6 +23,14 @@ class CalendarControllerTest < ActionDispatch::IntegrationTest
   test "should get month" do
     get month_calendar_path(id: "bosch_6_6", year: 2023, month: 2)
     assert_response :success
+    assert_select "#month_2023-1 caption", false, "Should not preload previous month"
+    assert_select "#month_2023-3 caption", false, "Should not preload next month"
+  end
+
+  test "should preload months" do
+    get month_calendar_path(id: "bosch_6_6", year: 2023, month: 2, preload: true)
+    assert_select "#month_2023-1 caption", true, "Should preload previous month"
+    assert_select "#month_2023-3 caption", true, "Should preload next month"
   end
 
   test "should select shift model" do
