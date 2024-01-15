@@ -1,29 +1,32 @@
 <h1>Calendar#show</h1>
 
 <% content_for :cal_nav do %>
-  <div class="d-flex mx-md-2">
+  <div class="d-flex mx-md-2" data-controller="resize-link-params" data-action="resize@window->resize-link-params#resized" data-resize-link-params-name-value="preload">
     <%= link_to(
       "<",
       month_calendar_path(
         year: @previous_month.year,
-        month: @previous_month.month
+        month: @previous_month.month,
       ),
       title: t("calendar.nav.last_month"),
-      class: "nav-link"
+      class: "nav-link",
+      data: { resize_link_params_target: "link" },
     ) %>
     <%= link_to(
       t("calendar.today"),
       calendar_path(anchor: "day_#{Date.current.iso8601}"),
-      class: "nav-link mx-3"
+      class: "nav-link mx-3",
+      data: { resize_link_params_target: "link" },
     ) %>
     <%= link_to(
       ">",
       month_calendar_path(
         year: @next_month.year,
-        month: @next_month.month
+        month: @next_month.month,
       ),
       title: t("calendar.nav.next_month"),
-      class: "nav-link"
+      class: "nav-link",
+      data: { resize_link_params_target: "link" },
     ) %>
   </div>
 <% end %>
@@ -37,35 +40,60 @@
   shift_update_zone_offset_value: Time.current.utc_offset,
   shift_update_reload_value: !@is_selected_month
 } do %>
-  <%= turbo_frame_tag(
-    "month_#{@previous_month.year}-#{@previous_month.month}",
-    src: month_calendar_path(
-      year: @previous_month.year,
-      month: @previous_month.month
-    ),
-    loading: "lazy",
-    class: "d-none d-xl-block g-col-12 g-col-md-6 g-col-lg-4 g-col-xl-3"
-  ) %>
+  <% if params.has_key?(:preload) %>
+    <%= render(
+      "month",
+      month: Shift.new(params[:id], year: @previous_month.year, month: @previous_month.month),
+      public_events: PublicEvent.all_in_month(@previous_month.year, @previous_month.month)
+    ) %>
+  <% else %>
+    <%= turbo_frame_tag(
+      "month_#{@previous_month.year}-#{@previous_month.month}",
+      src: month_calendar_path(
+        year: @previous_month.year,
+        month: @previous_month.month
+      ),
+      loading: "lazy",
+      class: "d-none d-xl-block g-col-12 g-col-md-6 g-col-lg-4 g-col-xl-3"
+    ) %>
+  <% end %>
 
   <%= render "month", month: @shift, public_events: @public_events %>
 
-  <%= turbo_frame_tag(
-    "month_#{@next_month.year}-#{@next_month.month}",
-    src: month_calendar_path(
-      year: @next_month.year,
-      month: @next_month.month
-    ),
-    loading: "lazy",
-    class: "d-none d-md-block g-col-12 g-col-md-6 g-col-lg-4 g-col-xl-3"
-  ) %>
+  <% if params.has_key?(:preload) %>
+    <%= render(
+      "month",
+      month: Shift.new(params[:id], year: @next_month.year, month: @next_month.month),
+      public_events: PublicEvent.all_in_month(@next_month.year, @next_month.month)
+    ) %>
+  <% else %>
+    <%= turbo_frame_tag(
+      "month_#{@next_month.year}-#{@next_month.month}",
+      src: month_calendar_path(
+        year: @next_month.year,
+        month: @next_month.month
+      ),
+      loading: "lazy",
+      class: "d-none d-md-block g-col-12 g-col-md-6 g-col-lg-4 g-col-xl-3"
+    ) %>
+  <% end %>
 
-  <%= turbo_frame_tag(
-    "month_#{@next_month.next_month.year}-#{@next_month.next_month.month}",
-    src: month_calendar_path(
-      year: @next_month.next_month.year,
-      month: @next_month.next_month.month
-    ),
-    loading: "lazy",
-    class: "d-none d-lg-block g-col-12 g-col-md-6 g-col-lg-4 g-col-xl-3"
-  ) %>
+  <% month_after_next = @next_month.next_month %>
+  <% if params.has_key?(:preload) %>
+    <%= render(
+      "month",
+      month: Shift.new(params[:id], year: month_after_next.year, month: month_after_next.month),
+      public_events: PublicEvent.all_in_month(month_after_next.year, month_after_next.month)
+    ) %>
+  <% else %>
+    <%= turbo_frame_tag(
+      "month_#{month_after_next.year}-#{month_after_next.month}",
+      src: month_calendar_path(
+        year: month_after_next.year,
+        month: month_after_next.month
+      ),
+      loading: "lazy",
+      class: "d-none d-lg-block g-col-12 g-col-md-6 g-col-lg-4 g-col-xl-3"
+    ) %>
+  <% end %>
 <% end %>

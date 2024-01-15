@@ -7,6 +7,9 @@ import { application } from "./application"
 import ResetFormController from "./reset_form_controller"
 application.register("reset-form", ResetFormController)
 
+import ResizeLinkParamsController from "./resize_link_params_controller"
+application.register("resize-link-params", ResizeLinkParamsController)
+
 import ShiftUpdateController from "./shift_update_controller"
 application.register("shift-update", ShiftUpdateController)
 
