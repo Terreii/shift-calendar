@@ -8,12 +8,26 @@ updates:
   - package-ecosystem: "bundler" # See documentation for possible values
     directory: "/" # Location of package manifests
     schedule:
-      interval: "daily"
+      interval: "weekly"
+    groups:
+      non-breaking-updates:
+        patterns:
+          - "*" # All dependecies that are minor or patch.
+        update-types:
+          - "minor"
+          - "patch"
 
   - package-ecosystem: "npm"
     directory: "/"
     schedule:
-      interval: "daily"
+      interval: "weekly"
+    groups:
+      non-breaking-updates:
+        patterns:
+          - "*" # All dependecies that are minor or patch.
+        update-types:
+          - "minor"
+          - "patch"
 
   - package-ecosystem: "github-actions"
     directory: "/"
